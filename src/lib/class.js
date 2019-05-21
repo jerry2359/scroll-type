@@ -28,24 +28,25 @@ export default class ScrollClass {
   listener(opts, callBack) {
     var selector = '',
       target = null
+    const getRandom = () => String(Math.random()*1000000000000).substring(0, 10)
     // opts都转换成对象的形式
     if (typeof opts === 'string' || (typeof jQuery !== 'undefined' && opts instanceof jQuery)) {
       opts = {
         el: opts
       }
     }
-    selector = opts.el
+    selector = 'Element' + getRandom()
     // 如果el是一个jq对象，则做一个data选择器的标记
     if (typeof jQuery !== 'undefined' && opts.el instanceof jQuery) {
       if (!opts.el.data('selector')) {
-        selector = 'jQuery' + Math.random()
+        selector = 'jQuery' + getRandom()
         opts.el.data('selector', selector)
       } else {
         selector = opts.el.data('selector')
       }
       target = opts.el.get(0)
     } else if (typeof opts.el === 'string') {
-      target = document.querySelector(selector)
+      target = document.querySelector(opts.el)
     } else {
       target = opts.el
     }
