@@ -1,9 +1,8 @@
 {
   "name": "scroll-type",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "滚动效果集合，存放一些滚动类型的插件。",
   "main": "dist/index.js",
-  "jsnext:main": "src/index.js",
   "scripts": {
     "build": "webpack"
   },
