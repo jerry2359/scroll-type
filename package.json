@@ -1,6 +1,6 @@
 {
   "name": "scroll-type",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "滚动效果集合，存放一些滚动类型的插件。",
   "main": "dist/index.js",
   "scripts": {
