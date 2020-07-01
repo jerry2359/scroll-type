@@ -2,13 +2,15 @@
  * 滚动通用类
  */
 export default class ScrollClass {
-  constructor() {
+  constructor(opts = {}) {
     // 一些默认设置
-    this.defaultOpts = {}
+    this.defaultOpts = {
+      container: opts.container || window
+    }
     // 监听器的数据列表
     this.listenerList = {}
     // 用函数节流的方式绑定滚动监听
-    window.addEventListener('scroll', this.throttle(this.handleScroll.bind(this), 100, 300))
+    this.defaultOpts.container.addEventListener('scroll', this.throttle(this.handleScroll.bind(this), 100, 300))
   }
 
   // 滚动监听所有
@@ -100,6 +102,7 @@ export default class ScrollClass {
 
   // 获取scrollTop
   getScrollTop() {
+    if (this.defaultOpts.container !== window) return this.defaultOpts.container.scrollTop
     var scrollTop = 0
     if (document.documentElement && document.documentElement.scrollTop) {
       scrollTop = document.documentElement.scrollTop
@@ -111,6 +114,7 @@ export default class ScrollClass {
 
   // 获取浏览器窗口高度
   getWindowHeight() {
+    if (this.defaultOpts.container !== window) return Math.floor(this.defaultOpts.container.clientHeight)
     var windowHeight = 0
     if (window.innerHeight) {
       windowHeight = window.innerHeight

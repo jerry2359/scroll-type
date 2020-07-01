@@ -34,13 +34,16 @@
 import ScrollClass from './class'
 
 export default class ListenScroll extends ScrollClass {
-  constructor() {
-    super()
+  constructor(opts = {}) {
+    super(opts)
     // 一些默认设置
-    this.defaultOpts = {
+    this.defaultOpts = Object.assign({
       scrollClassName: 'scroll-listened', // 为进场板块添加的class值
       trigger: 0, // 超出当前进场板块多少px时，触发进场或离场
-      triggerScale: 0 // 超出当前进场板块高度的多少比例折算的px时，触发进场或离场
+      triggerScale: 0, // 超出当前进场板块高度的多少比例折算的px时，触发进场或离场
+    }, this.defaultOpts)
+    if (this.defaultOpts.container !== window) {
+      this.mixinMethod(this.defaultOpts.container)
     }
   }
 
@@ -102,7 +105,7 @@ export default class ListenScroll extends ScrollClass {
   // leave 离场
   getStatus(screen, scrollTop, windowHeight, trigger, triggerScale) {
     let status = ''
-    const targetOffsetTop = screen.offset().top
+    const targetOffsetTop = this.defaultOpts.container === window ? screen.offset().top : screen.offset().top - this.defaultOpts.container.offset().top
     const targetHeight = screen.getHeight()
     if (
       // 从上往下滚动
